@@ -21,7 +21,7 @@ class MainTVC: UITableViewController, UISearchBarDelegate {
         let hopefullyPath = NSBundle.mainBundle().pathForResource("daten", ofType: "json")
         
         if let path = hopefullyPath {
-            var temp = NSData(contentsOfFile: path)
+            var temp = NSData(contentsOfFile: path)!
             var tempDaten = NSJSONSerialization.JSONObjectWithData(temp, options: .MutableContainers, error: nil) as [[String:String]]
             tempDaten.sort { $0["Nachname"]! < $1["Nachname"]! }
             daten = groupWohnort(alteDaten: tempDaten)
@@ -83,11 +83,11 @@ class MainTVC: UITableViewController, UISearchBarDelegate {
         }
         
         if tableView == searchDisplayController?.searchResultsTableView {
-            cell.textLabel?.text = generateTextFrom(dictionary: filteredDaten[indexPath.row])
+            cell.textLabel.text = generateTextFrom(dictionary: filteredDaten[indexPath.row])
             cell.detailTextLabel?.text = filteredDaten[indexPath.row]["Wohnort"]
         }
         else {
-            cell.textLabel?.text = generateTextFrom(dictionary: daten[indexPath.section][indexPath.row])
+            cell.textLabel.text = generateTextFrom(dictionary: daten[indexPath.section][indexPath.row])
         }
         
 
